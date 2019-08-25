@@ -1,0 +1,25 @@
+﻿<UserControl
+    x:Class="ImageSearcher.MainUI.SearchBarView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ImageSearcher.MainUI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="100"
+    d:DesignWidth="800">
+
+    <StackPanel>
+        <TextBox Text="{Binding SearchText}" Style="{StaticResource SearchTextBox}" />
+        <StackPanel Orientation="Horizontal">
+            <ComboBox PlaceholderText="ImageSize" ItemsSource="{Binding ImageSizeList, Mode=OneWay}" SelectedItem="{Binding SelectedImageSize}" Style="{StaticResource FilterComboBox}" />
+            <ComboBox PlaceholderText="Color" ItemsSource="{Binding ColorList, Mode=OneWay}" SelectedItem="{Binding SelectedColor}" Style="{StaticResource FilterComboBox}" />
+            <ComboBox PlaceholderText="Type" ItemsSource="{Binding TypeList, Mode=OneWay}" SelectedItem="{Binding SelectedType}" Style="{StaticResource FilterComboBox}" />
+            <ComboBox PlaceholderText="Layout" ItemsSource="{Binding LayoutList, Mode=OneWay}" SelectedItem="{Binding SelectedLayout}" Style="{StaticResource FilterComboBox}" />
+            <ComboBox PlaceholderText="People" ItemsSource="{Binding PeopleList, Mode=OneWay}" SelectedItem="{Binding SelectedPeople}" Style="{StaticResource FilterComboBox}" />
+            <ComboBox PlaceholderText="Date" ItemsSource="{Binding DateList, Mode=OneWay}" SelectedItem="{Binding SelectedDate}" Style="{StaticResource FilterComboBox}" />
+            <ComboBox PlaceholderText="License" ItemsSource="{Binding LicenseList, Mode=OneWay}" SelectedItem="{Binding SelectedLicense}" Style="{StaticResource FilterComboBox}" />
+            <ComboBox PlaceholderText="SafeSearch" ItemsSource="{Binding SafeSearchList, Mode=OneWay}" SelectedItem="{Binding SelectedSafeSearch}" Style="{StaticResource FilterComboBox}" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>

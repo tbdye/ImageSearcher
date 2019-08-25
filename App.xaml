@@ -1,7 +1,15 @@
 ﻿<Application
     x:Class="ImageSearcher.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ImageSearcher">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Design/Styles/Colors.xaml" />
+                <ResourceDictionary Source="/Design/Styles/Typographies.xaml" />
+                <ResourceDictionary Source="/Design/Styles/Controls.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
 
 </Application>
