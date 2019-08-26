@@ -4,27 +4,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace ImageSearcher.MainUI
 {
-    public class SearchBarViewModel : UiToolsBase
+    public class SearchBarViewModel : UiToolsBase, IDisposable
     {
         private readonly ImageSearchModel imageSearchModel;
 
         private string searchTextField;
-        private string selectedImageSizeField;
-        private string selectedColorField;
-        private string selectedTypeField;
-        private string selectedLayoutField;
-        private string selectedPeopleField;
-        private string selectedDateField;
-        private string selectedLicenseField;
-        private string selectedSafeSearchField;
 
         public SearchBarViewModel(ImageSearchModel imageSearchModel)
         {
             this.imageSearchModel = imageSearchModel;
+
+            this.DoSearch = new RelayCommand(this.DoSearchCommandHandler);
+
+            this.imageSearchModel.FilterStateChanged += this.FilterStateChangedEventHandler;
         }
+
+        public void Dispose()
+        {
+            this.imageSearchModel.FilterStateChanged -= this.FilterStateChangedEventHandler;
+        }
+
+        public ICommand DoSearch { get; }
 
         public string SearchText
         {
@@ -62,12 +66,16 @@ namespace ImageSearcher.MainUI
         {
             get
             {
-                return this.selectedImageSizeField;
+                return this.imageSearchModel.SelectedImageSize == "All" ? "Image size" : this.imageSearchModel.SelectedImageSize;
             }
 
             set
             {
-                this.SetProperty(ref this.selectedImageSizeField, value);
+                if (this.imageSearchModel.SelectedImageSize != value)
+                {
+                    this.imageSearchModel.SelectedImageSize = value;
+                    this.OnPropertyChanged(nameof(SelectedImageSize));
+                }
             }
         }
 
@@ -75,12 +83,16 @@ namespace ImageSearcher.MainUI
         {
             get
             {
-                return this.selectedColorField;
+                return this.imageSearchModel.SelectedColor == "All" ? "Color" : this.imageSearchModel.SelectedColor;
             }
 
             set
             {
-                this.SetProperty(ref this.selectedColorField, value);
+                if (this.imageSearchModel.SelectedColor != value)
+                {
+                    this.imageSearchModel.SelectedColor = value;
+                    this.OnPropertyChanged(nameof(SelectedColor));
+                }
             }
         }
 
@@ -88,12 +100,16 @@ namespace ImageSearcher.MainUI
         {
             get
             {
-                return this.selectedTypeField;
+                return this.imageSearchModel.SelectedType == "All" ? "Type" : this.imageSearchModel.SelectedType;
             }
 
             set
             {
-                this.SetProperty(ref this.selectedTypeField, value);
+                if (this.imageSearchModel.SelectedType != value)
+                {
+                    this.imageSearchModel.SelectedType = value;
+                    this.OnPropertyChanged(nameof(SelectedType));
+                }
             }
         }
 
@@ -101,12 +117,16 @@ namespace ImageSearcher.MainUI
         {
             get
             {
-                return this.selectedLayoutField;
+                return this.imageSearchModel.SelectedLayout == "All" ? "Layout" : this.imageSearchModel.SelectedLayout;
             }
 
             set
             {
-                this.SetProperty(ref this.selectedLayoutField, value);
+                if (this.imageSearchModel.SelectedLayout != value)
+                {
+                    this.imageSearchModel.SelectedLayout = value;
+                    this.OnPropertyChanged(nameof(SelectedLayout));
+                }
             }
         }
 
@@ -114,12 +134,16 @@ namespace ImageSearcher.MainUI
         {
             get
             {
-                return this.selectedPeopleField;
+                return this.imageSearchModel.SelectedPeople == "All" ? "People" : this.imageSearchModel.SelectedPeople;
             }
 
             set
             {
-                this.SetProperty(ref this.selectedPeopleField, value);
+                if (this.imageSearchModel.SelectedPeople != value)
+                {
+                    this.imageSearchModel.SelectedPeople = value;
+                    this.OnPropertyChanged(nameof(SelectedPeople));
+                }
             }
         }
 
@@ -127,12 +151,16 @@ namespace ImageSearcher.MainUI
         {
             get
             {
-                return this.selectedDateField;
+                return this.imageSearchModel.SelectedDate == "All" ? "Date" : this.imageSearchModel.SelectedDate;
             }
 
             set
             {
-                this.SetProperty(ref this.selectedDateField, value);
+                if (this.imageSearchModel.SelectedDate != value)
+                {
+                    this.imageSearchModel.SelectedDate = value;
+                    this.OnPropertyChanged(nameof(SelectedDate));
+                }
             }
         }
 
@@ -140,12 +168,16 @@ namespace ImageSearcher.MainUI
         {
             get
             {
-                return this.selectedLicenseField;
+                return this.imageSearchModel.SelectedLicense == "All" ? "License" : this.imageSearchModel.SelectedLicense;
             }
 
             set
             {
-                this.SetProperty(ref this.selectedLicenseField, value);
+                if (this.imageSearchModel.SelectedLicense != value)
+                {
+                    this.imageSearchModel.SelectedLicense = value;
+                    this.OnPropertyChanged(nameof(SelectedLicense));
+                }
             }
         }
 
@@ -153,13 +185,27 @@ namespace ImageSearcher.MainUI
         {
             get
             {
-                return this.selectedSafeSearchField;
+                return this.imageSearchModel.SelectedSafeSearch == "All" ? "Moderate" : this.imageSearchModel.SelectedSafeSearch;
             }
 
             set
             {
-                this.SetProperty(ref this.selectedSafeSearchField, value);
+                if (this.imageSearchModel.SelectedSafeSearch != value)
+                {
+                    this.imageSearchModel.SelectedSafeSearch = value;
+                    this.OnPropertyChanged(nameof(SelectedSafeSearch));
+                }
             }
+        }
+
+        private void DoSearchCommandHandler()
+        {
+            this.imageSearchModel.DoSearch();
+        }
+
+        private void FilterStateChangedEventHandler(object o, EventArgs e)
+        {
+            this.imageSearchModel.DoSearch();
         }
     }
 }

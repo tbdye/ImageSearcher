@@ -1,6 +1,7 @@
 ﻿using ImageSearcher.Components;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,11 +10,13 @@ namespace ImageSearcher.MainUI
 {
     public class ImageViewModel : UiToolsBase
     {
-        private ImageContentModel imageContentModel;
+        private ImageSearchModel imageSearchModel;
 
-        public ImageViewModel(ImageContentModel imageContentModel)
+        public ImageViewModel(ImageSearchModel imageSearchModel)
         {
-            this.imageContentModel = imageContentModel;
+            this.imageSearchModel = imageSearchModel;
         }
+
+        public ObservableCollection<ImageCollection> SearchResults => imageSearchModel.SearchResults;
     }
 }

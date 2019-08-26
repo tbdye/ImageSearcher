@@ -119,8 +119,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\ImageContentModel.cs" />
+    <Compile Include="Components\ImageCollection.cs" />
+    <Compile Include="Components\ImageMetaData.cs" />
     <Compile Include="Components\ImageSearchModel.cs" />
+    <Compile Include="Components\RelayCommand.cs" />
     <Compile Include="Components\UiToolsBase.cs" />
     <Compile Include="MainUI\ImageView.xaml.cs">
       <DependentUpon>ImageView.xaml</DependentUpon>
@@ -185,8 +187,16 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.8</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
+      <Version>5.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.2</Version>
+    </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Design\Controls\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

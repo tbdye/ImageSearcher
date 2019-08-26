@@ -16,7 +16,7 @@
   <Properties>
     <DisplayName>ImageSearcher</DisplayName>
     <PublisherDisplayName>thomas</PublisherDisplayName>
-    <Logo>Assets\StoreLogo.png</Logo>
+    <Logo>Design\Assets\StoreLogo.png</Logo>
   </Properties>
 
   <Dependencies>
@@ -33,12 +33,17 @@
       EntryPoint="ImageSearcher.App">
       <uap:VisualElements
         DisplayName="ImageSearcher"
-        Square150x150Logo="Assets\Square150x150Logo.png"
-        Square44x44Logo="Assets\Square44x44Logo.png"
+        Square150x150Logo="Design\Assets\Square150x150Logo.png"
+        Square44x44Logo="Design\Assets\Square44x44Logo.png"
         Description="ImageSearcher"
         BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:DefaultTile Wide310x150Logo="Design\Assets\Wide310x150Logo.png">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo"/>
+            <uap:ShowOn Tile="wide310x150Logo"/>
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile >
+        <uap:SplashScreen Image="Design\Assets\SplashScreen.png" />
       </uap:VisualElements>
     </Application>
   </Applications>

@@ -10,8 +10,12 @@
         <local:MainPageViewModel />
     </Page.DataContext>
 
-    <StackPanel Background="{StaticResource DarkGrayBrush}">
-        <local:SearchBarView DataContext="{Binding SearchBarViewModel}" />
-        <local:ImageView DataContext="{Binding ImageViewModel}" />
-    </StackPanel>
+    <Grid Background="{StaticResource DarkGrayBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <local:SearchBarView Grid.Row="0" DataContext="{Binding SearchBarViewModel}" />
+        <local:ImageView Grid.Row="1" DataContext="{Binding ImageViewModel}" />
+    </Grid>
 </Page>

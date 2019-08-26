@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace ImageSearcher.Components
 {
-    public class ImageContentModel
+    public class ImageMetaData
     {
+        public string Name { get; set; }
+
+        public string ContentUrl { get; set; }
     }
 }

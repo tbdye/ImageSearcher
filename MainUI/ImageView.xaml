@@ -5,11 +5,36 @@
     xmlns:local="using:ImageSearcher.MainUI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
     <Grid>
+        <Grid.Resources>
+            <CollectionViewSource x:Name="SearchResults" Source="{Binding SearchResults}" IsSourceGrouped="False" />
+        </Grid.Resources>
 
+        <ListView ItemsSource="{Binding Source={StaticResource SearchResults}}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <HyperlinkButton NavigateUri="{Binding ImageMetaDataCollection.ContentUrl}">
+                            <Image Source="{Binding ImageMetaDataCollection.ContentUrl}" />
+                        </HyperlinkButton>
+                        <Border Background="#44000000" VerticalAlignment="Top">
+                            <TextBlock Foreground="White" Margin="3,1">
+                                <Run Text="{Binding ImageMetaDataCollection.Name}"/>
+                            </TextBlock>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <controls:StaggeredPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ListView>
     </Grid>
 </UserControl>

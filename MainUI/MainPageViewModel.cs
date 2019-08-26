@@ -20,11 +20,10 @@ namespace ImageSearcher.MainUI
 
         private void Initialize()
         {
-            var imageContentModel = new ImageContentModel();
-            var imageSearchModel = new ImageSearchModel(imageContentModel);
+            var imageSearchModel = new ImageSearchModel();
 
             this.SearchBarViewModel = new SearchBarViewModel(imageSearchModel);
-            this.ImageViewModel = new ImageViewModel(imageContentModel);
+            this.ImageViewModel = new ImageViewModel(imageSearchModel);
         }
     }
 }

@@ -7,7 +7,7 @@
         <ResourceDictionary Source="Typographies.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Style x:Key="SearchTextBox" TargetType="TextBox">
+    <Style x:Key="SearchAutoSuggestBox" TargetType="AutoSuggestBox">
         
     </Style>
 
