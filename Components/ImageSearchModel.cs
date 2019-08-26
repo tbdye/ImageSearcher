@@ -28,6 +28,12 @@ namespace ImageSearcher.Components
             this.SearchResults = new ObservableCollection<ImageCollection>();
         }
 
+        private string Query { get; set; }
+
+        private int Count { get; set; } = 50;
+
+        private int Offset { get; set; }
+
         public ObservableCollection<ImageCollection> SearchResults { get; private set; }
 
         public string SearchText { get; set; }
@@ -315,19 +321,30 @@ namespace ImageSearcher.Components
 
         public async void DoSearch()
         {
-            var query = this.SearchText?.Trim();
+            this.Query = this.SearchText?.Trim();
 
             if (this.SearchResults.Count > 0)
             {
                 this.SearchResults.Clear();
+                this.Offset = 0;
             }
 
-            if (String.IsNullOrEmpty(query))
+            if (String.IsNullOrEmpty(this.Query))
             {
                 return;
             }
 
-            var results = await ImageSearch(query);
+            var results = await ImageSearch(this.Query);
+
+            foreach (var result in results)
+            {
+                SearchResults.Add(new ImageCollection { ImageMetaDataCollection = result });
+            }
+        }
+
+        public async void SeeMoreImages()
+        {
+            var results = await ImageSearch(this.Query);
 
             foreach (var result in results)
             {
@@ -339,32 +356,36 @@ namespace ImageSearcher.Components
         {
             var results = new List<ImageMetaData>();
             var client = new HttpClient();
-
+            
             // Request headers
             client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", "7e18a9a770e7437185aec8841d3dc83d");
 
             // Request parameters
-            var count = 50;
-            var offset = 0;
-            var mkt = "en-us";
-
             var ImgSearchEndPoint = "https://imagesearcherapp.cognitiveservices.azure.com/bing/v7.0/images/search?";
+            var mkt = "en-us";
 
             var request = string.Format("{0}q={1}&count={2}&offset={3}&mkt={4}",
                 ImgSearchEndPoint,
                 WebUtility.UrlEncode(query),
-                count.ToString(),
-                offset.ToString(),
+                this.Count.ToString(),
+                this.Offset.ToString(),
                 mkt);
 
             var result = await client.GetAsync(request + this.GetFilters());
 
             result.EnsureSuccessStatusCode();
+
             var json = await result.Content.ReadAsStringAsync();
 
             dynamic data = JObject.Parse(json);
 
-            for (int i = offset; i < count; i++)
+            var test = data.totalEstimatedMatches;
+
+            int currentOffset = this.Offset;
+            int nextOffset = data.nextOffset;
+            int count = nextOffset - currentOffset;
+
+            for (int i = 0; i < count; i++)
             {
                 try
                 {
@@ -379,6 +400,8 @@ namespace ImageSearcher.Components
                     break;
                 }
             }
+
+            this.Offset = nextOffset;
 
             return results;
         }

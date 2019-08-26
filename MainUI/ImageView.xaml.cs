@@ -6,9 +6,21 @@ namespace ImageSearcher.MainUI
 {
     public sealed partial class ImageView : UserControl
     {
+        private ImageViewModel ViewModel => DataContext as ImageViewModel;
+
         public ImageView()
         {
             this.InitializeComponent();
+        }
+
+        private void Scroll_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            var scrollViewer = (ScrollViewer)sender;
+
+            if (scrollViewer.VerticalOffset  >= scrollViewer.ScrollableHeight)
+            {
+                this.ViewModel.SeeMoreImages();
+            }
         }
     }
 }

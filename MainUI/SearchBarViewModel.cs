@@ -185,7 +185,7 @@ namespace ImageSearcher.MainUI
         {
             get
             {
-                return this.imageSearchModel.SelectedSafeSearch == "All" ? "Moderate" : this.imageSearchModel.SelectedSafeSearch;
+                return this.imageSearchModel.SelectedSafeSearch == "Moderate" ? "SafeSearch" : this.imageSearchModel.SelectedSafeSearch;
             }
 
             set

@@ -18,5 +18,10 @@ namespace ImageSearcher.MainUI
         }
 
         public ObservableCollection<ImageCollection> SearchResults => imageSearchModel.SearchResults;
+
+        internal void SeeMoreImages()
+        {
+            this.imageSearchModel.SeeMoreImages();
+        }
     }
 }

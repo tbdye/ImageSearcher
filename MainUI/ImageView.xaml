@@ -15,26 +15,29 @@
             <CollectionViewSource x:Name="SearchResults" Source="{Binding SearchResults}" IsSourceGrouped="False" />
         </Grid.Resources>
 
-        <ListView ItemsSource="{Binding Source={StaticResource SearchResults}}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <HyperlinkButton NavigateUri="{Binding ImageMetaDataCollection.ContentUrl}">
-                            <Image Source="{Binding ImageMetaDataCollection.ContentUrl}" />
-                        </HyperlinkButton>
-                        <Border Background="#44000000" VerticalAlignment="Top">
-                            <TextBlock Foreground="White" Margin="3,1">
+        <ScrollViewer Name="scroll" ViewChanged="Scroll_ViewChanged">
+            <ListView ItemsSource="{Binding Source={StaticResource SearchResults}}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <HyperlinkButton NavigateUri="{Binding ImageMetaDataCollection.ContentUrl}">
+                                <Image Source="{Binding ImageMetaDataCollection.ContentUrl}" />
+                            </HyperlinkButton>
+                            <Border Background="#44000000" VerticalAlignment="Top">
+                                <TextBlock Foreground="White" Margin="3,1">
                                 <Run Text="{Binding ImageMetaDataCollection.Name}"/>
-                            </TextBlock>
-                        </Border>
-                    </Grid>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <controls:StaggeredPanel />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ListView>
+                                </TextBlock>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <controls:StaggeredPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ListView>
+        </ScrollViewer>
+        
     </Grid>
 </UserControl>
