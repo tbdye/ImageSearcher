@@ -12,6 +12,8 @@ namespace ImageSearcher.Components
 {
     public class ImageSearchModel
     {
+        private readonly BingImageSearchConnector imageSearchConnector;
+
         private string selectedImageSizeField = "All";
         private string selectedColorField = "All";
         private string selectedTypeField = "All";
@@ -25,14 +27,10 @@ namespace ImageSearcher.Components
 
         public ImageSearchModel()
         {
+            this.imageSearchConnector = new BingImageSearchConnector();
+
             this.SearchResults = new ObservableCollection<ImageCollection>();
         }
-
-        private string Query { get; set; }
-
-        private int Count { get; set; } = 50;
-
-        private int Offset { get; set; }
 
         public ObservableCollection<ImageCollection> SearchResults { get; private set; }
 
@@ -319,138 +317,84 @@ namespace ImageSearcher.Components
             }
         }
 
+        private string GetFilters
+        {
+            get
+            {
+                var filters = String.Empty;
+
+                if (this.SelectedImageSize != "All")
+                {
+                    filters += "&size=" + this.SelectedImageSize;
+                }
+
+                if (this.SelectedColor != "All")
+                {
+                    filters += "&color=" + this.SelectedColor;
+                }
+
+                if (this.SelectedType != "All")
+                {
+                    filters += "&imageType=" + this.SelectedType;
+                }
+
+                if (this.SelectedLayout != "All")
+                {
+                    filters += "&aspect=" + this.SelectedLayout;
+                }
+
+                if (this.SelectedPeople != "All")
+                {
+                    filters += "&imageContent=" + this.SelectedPeople;
+                }
+
+                if (this.SelectedDate != "All")
+                {
+                    filters += "&freshness=" + this.SelectedDate;
+                }
+
+                if (this.SelectedLicense != "All")
+                {
+                    filters += "&license=" + this.SelectedLicense;
+                }
+
+                if (this.SelectedSafeSearch != "Moderate")
+                {
+                    filters += "&safeSearch=" + this.SelectedSafeSearch;
+                }
+
+                return filters;
+            }
+        }
+
         public async void DoSearch()
         {
-            this.Query = this.SearchText?.Trim();
-
             if (this.SearchResults.Count > 0)
             {
                 this.SearchResults.Clear();
-                this.Offset = 0;
             }
 
-            if (String.IsNullOrEmpty(this.Query))
+            if (String.IsNullOrEmpty(this.SearchText))
             {
                 return;
             }
 
-            var results = await ImageSearch(this.Query);
+            var imageMetadataList = await imageSearchConnector.NewImageSearch(this.SearchText, this.GetFilters);
 
-            foreach (var result in results)
+            foreach (var imageMetadata in imageMetadataList)
             {
-                SearchResults.Add(new ImageCollection { ImageMetaDataCollection = result });
+                SearchResults.Add(new ImageCollection { ImageMetadataCollection = imageMetadata });
             }
         }
 
-        public async void SeeMoreImages()
+        public void SeeMoreImages()
         {
-            var results = await ImageSearch(this.Query);
+            var imageMetadataList = imageSearchConnector.LoadNextOffset();
 
-            foreach (var result in results)
+            foreach (var imageMetadata in imageMetadataList)
             {
-                SearchResults.Add(new ImageCollection { ImageMetaDataCollection = result });
+                SearchResults.Add(new ImageCollection { ImageMetadataCollection = imageMetadata });
             }
-        }
-
-        private async Task<IEnumerable<ImageMetaData>> ImageSearch(string query)
-        {
-            var results = new List<ImageMetaData>();
-            var client = new HttpClient();
-            
-            // Request headers
-            client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", "7e18a9a770e7437185aec8841d3dc83d");
-
-            // Request parameters
-            var ImgSearchEndPoint = "https://imagesearcherapp.cognitiveservices.azure.com/bing/v7.0/images/search?";
-            var mkt = "en-us";
-
-            var request = string.Format("{0}q={1}&count={2}&offset={3}&mkt={4}",
-                ImgSearchEndPoint,
-                WebUtility.UrlEncode(query),
-                this.Count.ToString(),
-                this.Offset.ToString(),
-                mkt);
-
-            var result = await client.GetAsync(request + this.GetFilters());
-
-            result.EnsureSuccessStatusCode();
-
-            var json = await result.Content.ReadAsStringAsync();
-
-            dynamic data = JObject.Parse(json);
-
-            var test = data.totalEstimatedMatches;
-
-            int currentOffset = this.Offset;
-            int nextOffset = data.nextOffset;
-            int count = nextOffset - currentOffset;
-
-            for (int i = 0; i < count; i++)
-            {
-                try
-                {
-                    results.Add(new ImageMetaData
-                    {
-                        Name = data.value[i].name,
-                        ContentUrl = data.value[i].contentUrl,
-                    });
-                }
-                catch
-                {
-                    break;
-                }
-            }
-
-            this.Offset = nextOffset;
-
-            return results;
-        }
-
-        private string GetFilters()
-        {
-            var filters = String.Empty;
-
-            if (this.SelectedImageSize != "All")
-            {
-                filters += "&size=" + this.SelectedImageSize;
-            }
-
-            if (this.SelectedColor != "All")
-            {
-                filters += "&color=" + this.SelectedColor;
-            }
-
-            if (this.SelectedType != "All")
-            {
-                filters += "&imageType=" + this.SelectedType;
-            }
-
-            if (this.SelectedLayout != "All")
-            {
-                filters += "&aspect=" + this.SelectedLayout;
-            }
-
-            if (this.SelectedPeople != "All")
-            {
-                filters += "&imageContent=" + this.SelectedPeople;
-            }
-
-            if (this.SelectedDate != "All")
-            {
-                filters += "&freshness=" + this.SelectedDate;
-            }
-
-            if (this.SelectedLicense != "All")
-            {
-                filters += "&license=" + this.SelectedLicense;
-            }
-
-            if (this.SelectedSafeSearch != "Moderate")
-            {
-                filters += "&safeSearch=" + this.SelectedSafeSearch;
-            }
-
-            return filters;
         }
     }
 }

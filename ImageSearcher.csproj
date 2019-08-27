@@ -119,8 +119,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\BingImageSearchConnector.cs" />
     <Compile Include="Components\ImageCollection.cs" />
-    <Compile Include="Components\ImageMetaData.cs" />
+    <Compile Include="Components\ImageMetadata.cs" />
     <Compile Include="Components\ImageSearchModel.cs" />
     <Compile Include="Components\RelayCommand.cs" />
     <Compile Include="Components\UiToolsBase.cs" />

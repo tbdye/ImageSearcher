@@ -20,12 +20,12 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            <HyperlinkButton NavigateUri="{Binding ImageMetaDataCollection.ContentUrl}">
-                                <Image Source="{Binding ImageMetaDataCollection.ContentUrl}" />
+                            <HyperlinkButton NavigateUri="{Binding ImageMetadataCollection.ContentUrl}">
+                                <Image Source="{Binding ImageMetadataCollection.ThumbnailUrl}" />
                             </HyperlinkButton>
                             <Border Background="#44000000" VerticalAlignment="Top">
                                 <TextBlock Foreground="White" Margin="3,1">
-                                <Run Text="{Binding ImageMetaDataCollection.Name}"/>
+                                    <Run Text="{Binding ImageMetadataCollection.Name}"/>
                                 </TextBlock>
                             </Border>
                         </Grid>

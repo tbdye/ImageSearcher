@@ -2,6 +2,6 @@
 {
     public class ImageCollection
     {
-        public ImageMetaData ImageMetaDataCollection { get; set; }
+        public ImageMetadata ImageMetadataCollection { get; set; }
     }
 }

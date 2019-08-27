@@ -10,7 +10,7 @@ namespace ImageSearcher.MainUI
 {
     public class ImageViewModel : UiToolsBase
     {
-        private ImageSearchModel imageSearchModel;
+        private readonly ImageSearchModel imageSearchModel;
 
         public ImageViewModel(ImageSearchModel imageSearchModel)
         {
