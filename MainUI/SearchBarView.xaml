@@ -10,21 +10,25 @@
     d:DesignWidth="800">
 
     <StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <AutoSuggestBox Text="{Binding SearchText, Mode=TwoWay}" Style="{StaticResource SearchAutoSuggestBox}" />
-            <Button Command="{Binding DoSearch}">
+        <StackPanel Margin="20,20,0,10" Orientation="Horizontal">
+            <Grid>
+                <TextBox Text="{Binding SearchText, Mode=TwoWay}" Style="{StaticResource SearchTextBox}" />
+            </Grid>
+
+            <Button Margin="10,0,0,0" Command="{Binding DoSearch}" >
                 <SymbolIcon Symbol="Find" />
             </Button>
         </StackPanel>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Margin="20,10,0,20" Orientation="Horizontal">
             <ComboBox PlaceholderText="ImageSize" ItemsSource="{Binding ImageSizeList, Mode=OneWay}" SelectedItem="{Binding SelectedImageSize, Mode=TwoWay}" Style="{StaticResource FilterComboBox}" />
-            <ComboBox PlaceholderText="Color" ItemsSource="{Binding ColorList, Mode=OneWay}" SelectedItem="{Binding SelectedColor, Mode=TwoWay}" Style="{StaticResource FilterComboBox}" />
-            <ComboBox PlaceholderText="Type" ItemsSource="{Binding TypeList, Mode=OneWay}" SelectedItem="{Binding SelectedType, Mode=TwoWay}" Style="{StaticResource FilterComboBox}" />
-            <ComboBox PlaceholderText="Layout" ItemsSource="{Binding LayoutList, Mode=OneWay}" SelectedItem="{Binding SelectedLayout, Mode=TwoWay}" Style="{StaticResource FilterComboBox}" />
-            <ComboBox PlaceholderText="People" ItemsSource="{Binding PeopleList, Mode=OneWay}" SelectedItem="{Binding SelectedPeople, Mode=TwoWay}" Style="{StaticResource FilterComboBox}" />
-            <ComboBox PlaceholderText="Date" ItemsSource="{Binding DateList, Mode=OneWay}" SelectedItem="{Binding SelectedDate, Mode=TwoWay}" Style="{StaticResource FilterComboBox}" />
-            <ComboBox PlaceholderText="License" ItemsSource="{Binding LicenseList, Mode=OneWay}" SelectedItem="{Binding SelectedLicense, Mode=TwoWay}" Style="{StaticResource FilterComboBox}" />
-            <ComboBox PlaceholderText="SafeSearch" ItemsSource="{Binding SafeSearchList, Mode=OneWay}" SelectedItem="{Binding SelectedSafeSearch, Mode=TwoWay}" Style="{StaticResource FilterComboBox}" />
+            <ComboBox PlaceholderText="Color" Margin="10,0,0,0" ItemsSource="{Binding ColorList, Mode=OneWay}" SelectedItem="{Binding SelectedColor, Mode=TwoWay}" Style="{StaticResource FilterComboBox}" />
+            <ComboBox PlaceholderText="Type" Margin="10,0,0,0" ItemsSource="{Binding TypeList, Mode=OneWay}" SelectedItem="{Binding SelectedType, Mode=TwoWay}" Style="{StaticResource FilterComboBox}" />
+            <ComboBox PlaceholderText="Layout" Margin="10,0,0,0" ItemsSource="{Binding LayoutList, Mode=OneWay}" SelectedItem="{Binding SelectedLayout, Mode=TwoWay}" Style="{StaticResource FilterComboBox}" />
+            <ComboBox PlaceholderText="People" Margin="10,0,0,0" ItemsSource="{Binding PeopleList, Mode=OneWay}" SelectedItem="{Binding SelectedPeople, Mode=TwoWay}" Style="{StaticResource FilterComboBox}" />
+            <ComboBox PlaceholderText="Date" Margin="10,0,0,0" ItemsSource="{Binding DateList, Mode=OneWay}" SelectedItem="{Binding SelectedDate, Mode=TwoWay}" Style="{StaticResource FilterComboBox}" />
+            <ComboBox PlaceholderText="License" Margin="10,0,0,0" ItemsSource="{Binding LicenseList, Mode=OneWay}" SelectedItem="{Binding SelectedLicense, Mode=TwoWay}" Style="{StaticResource FilterComboBox}" />
+            <ComboBox PlaceholderText="SafeSearch" Margin="10,0,0,0" ItemsSource="{Binding SafeSearchList, Mode=OneWay}" SelectedItem="{Binding SelectedSafeSearch, Mode=TwoWay}" Style="{StaticResource FilterComboBox}" />
         </StackPanel>
+        <Border BorderBrush="{StaticResource MediumGrayBrush}" BorderThickness=".5"/>
     </StackPanel>
 </UserControl>

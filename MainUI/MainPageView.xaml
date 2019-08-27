@@ -10,7 +10,7 @@
         <local:MainPageViewModel />
     </Page.DataContext>
 
-    <Grid Background="{StaticResource DarkGrayBrush}">
+    <Grid Background="{StaticResource WhiteBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />

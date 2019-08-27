@@ -69,16 +69,7 @@ namespace ImageSearcher.Components
             var lastIndex = this.TotalEstimatedMatches < count ? this.TotalEstimatedMatches : count;
 
             // Collect image metadata for display
-            for (int resultIndex = 0; resultIndex < lastIndex; resultIndex++)
-            {
-                metadataResults.Add(new ImageMetadata
-                {
-                    Id = jsonObject.value[resultIndex].imageId,
-                    Name = jsonObject.value[resultIndex].name,
-                    ThumbnailUrl = jsonObject.value[resultIndex].thumbnailUrl,
-                    ContentUrl = jsonObject.value[resultIndex].contentUrl,
-                });
-            }
+            this.SetImageMetadata(metadataResults, jsonObject, lastIndex);
 
             // Reset the offset for the next prefetch
             this.Offset = jsonObject.nextOffset;
@@ -89,13 +80,22 @@ namespace ImageSearcher.Components
             return metadataResults;
         }
 
+        public IEnumerable<ImageMetadata> LoadNextOffset()
+        {
+            var imageMetadata = new List<ImageMetadata>(this.PrefetchedImageSearchResults);
+
+            Task.Run(() => this.PrefetchNextImageSearchResults());
+
+            return imageMetadata; 
+        }
+
         private async void PrefetchNextImageSearchResults()
         {
             this.PrefetchedImageSearchResults.Clear();
 
             // Format the query to display the next set of search results
             var offset = "&offset=" + this.Offset;
-            
+
             // Send a search request
             var jsonResult = await BingImageSearch(this.Query + offset + this.Filters);
 
@@ -111,28 +111,26 @@ namespace ImageSearcher.Components
             var lastIndex = this.RemainingEstimatedMatches < count ? this.RemainingEstimatedMatches : count;
 
             // Collect image metadata for display
-            for (int resultIndex = 0; resultIndex < lastIndex; resultIndex++)
-            {
-                this.PrefetchedImageSearchResults.Add(new ImageMetadata
-                {
-                    Id = jsonObject.value[resultIndex].imageId,
-                    Name = jsonObject.value[resultIndex].name,
-                    ThumbnailUrl = jsonObject.value[resultIndex].thumbnailUrl,
-                    ContentUrl = jsonObject.value[resultIndex].contentUrl,
-                });
-            }
+            this.SetImageMetadata(this.PrefetchedImageSearchResults, jsonObject, lastIndex);
 
             // Reset the offset for the next prefetch
             this.Offset = jsonObject.nextOffset;
         }
 
-        public IEnumerable<ImageMetadata> LoadNextOffset()
+        private void SetImageMetadata(List<ImageMetadata> list, dynamic jsonObject, int lastIndex)
         {
-            var imageMetadata = new List<ImageMetadata>(this.PrefetchedImageSearchResults);
-
-            this.PrefetchNextImageSearchResults();
-
-            return imageMetadata; 
+            for (int resultIndex = 0; resultIndex < lastIndex; resultIndex++)
+            {
+                list.Add(new ImageMetadata
+                {
+                    Id = jsonObject.value[resultIndex].imageId,
+                    Name = jsonObject.value[resultIndex].name,
+                    ThumbnailUrl = jsonObject.value[resultIndex].thumbnailUrl,
+                    Width = jsonObject.value[resultIndex].thumbnail.width,
+                    Height = jsonObject.value[resultIndex].thumbnail.height,
+                    ContentUrl = jsonObject.value[resultIndex].contentUrl,
+                });
+            }
         }
 
         private static async Task<string> BingImageSearch(string searchQuery)

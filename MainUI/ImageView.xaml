@@ -16,6 +16,30 @@
         </Grid.Resources>
 
         <ScrollViewer Name="scroll" ViewChanged="Scroll_ViewChanged">
+            <ListBox ItemsSource="{Binding Source={StaticResource SearchResults}}" Background="{StaticResource WhiteBrush}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <HyperlinkButton Padding="0" NavigateUri="{Binding ImageMetadataCollection.ContentUrl}">
+                                <Image Source="{Binding ImageMetadataCollection.ThumbnailUrl}" />
+                            </HyperlinkButton>
+                            <Grid>
+                                <Grid Background="#44000000" VerticalAlignment="Bottom">
+                                    <TextBlock Margin="3" Text="{Binding ImageMetadataCollection.Name}" Foreground="{StaticResource WhiteBrush}" />
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <controls:StaggeredPanel Margin="10" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ListBox>
+        </ScrollViewer>
+
+        <!--<ScrollViewer Name="scroll" ViewChanged="Scroll_ViewChanged">
             <ListView ItemsSource="{Binding Source={StaticResource SearchResults}}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -37,7 +61,7 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ListView>
-        </ScrollViewer>
+        </ScrollViewer>-->
         
     </Grid>
 </UserControl>

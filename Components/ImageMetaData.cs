@@ -14,6 +14,10 @@ namespace ImageSearcher.Components
 
         public string ThumbnailUrl { get; set; }
 
+        public int Width { get; set; }
+
+        public int Height { get; set; }
+
         public string ContentUrl { get; set; }
     }
 }

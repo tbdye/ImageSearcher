@@ -7,11 +7,19 @@
         <ResourceDictionary Source="Typographies.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Style x:Key="SearchAutoSuggestBox" TargetType="AutoSuggestBox">
-        
+    <Style x:Key="SearchTextBox" TargetType="TextBox">
+        <Style.Setters>
+            <Setter Property="Width" Value="400" />
+            <Setter Property="Background" Value="{StaticResource WhiteBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="{StaticResource MediumGrayBrush}" />
+            <Setter Property="CornerRadius" Value="5" />
+        </Style.Setters>
     </Style>
 
     <Style x:Key="FilterComboBox" TargetType="ComboBox">
-        
+        <Style.Setters>
+            <Setter Property="BorderThickness" Value="1" />
+        </Style.Setters>
     </Style>
 </ResourceDictionary>
