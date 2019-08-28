@@ -16,7 +16,7 @@ namespace ImageSearcher.Components
 
         public BingImageSearchConnector()
         {
-            this.PrefetchedImageSearchResults = new List<ImageMetadata>();
+            this.PrefetchedImageSearchResults = new List<ImageData>();
         }
 
         public int TotalEstimatedMatches { get; private set; }
@@ -35,11 +35,11 @@ namespace ImageSearcher.Components
 
         private string Filters { get; set; }
 
-        private List<ImageMetadata> PrefetchedImageSearchResults { get; set; }
+        private List<ImageData> PrefetchedImageSearchResults { get; set; }
 
-        public async Task<IEnumerable<ImageMetadata>> NewImageSearch(string query, string filters)
+        public async Task<IEnumerable<ImageData>> NewImageSearch(string query, string filters)
         {
-            var metadataResults = new List<ImageMetadata>();
+            var imageDataResults = new List<ImageData>();
 
             // Reset properties
             this.PrefetchedImageSearchResults.Clear();
@@ -53,7 +53,7 @@ namespace ImageSearcher.Components
 
             if (jsonResult == null)
             {
-                return metadataResults;
+                return imageDataResults;
             }
 
             // Deserialize the JSON response from the Bing Image Search API
@@ -61,15 +61,15 @@ namespace ImageSearcher.Components
 
             if (jsonObject.value.Count == 0)
             {
-                return metadataResults;
+                return imageDataResults;
             }
 
             // Set properties from the JSON response for image processing
             this.TotalEstimatedMatches = jsonObject.totalEstimatedMatches;
             var lastIndex = this.TotalEstimatedMatches < count ? this.TotalEstimatedMatches : count;
 
-            // Collect image metadata for display
-            this.SetImageMetadata(metadataResults, jsonObject, lastIndex);
+            // Collect image data for display
+            this.SetImageData(imageDataResults, jsonObject, lastIndex);
 
             // Reset the offset for the next prefetch
             this.Offset = jsonObject.nextOffset;
@@ -77,16 +77,19 @@ namespace ImageSearcher.Components
             // Prefetch the next page of results, but don't load them yet.
             this.PrefetchNextImageSearchResults();
 
-            return metadataResults;
+            return imageDataResults;
         }
 
-        public IEnumerable<ImageMetadata> LoadNextOffset()
+        public IEnumerable<ImageData> LoadNextOffset()
         {
-            var imageMetadata = new List<ImageMetadata>(this.PrefetchedImageSearchResults);
+            // Copy the prefetched images to be displayed
+            var imageData = new List<ImageData>(this.PrefetchedImageSearchResults);
 
+            // Empty the existing prefetch cache and refill it with the next set of results, but don't load them yet
             Task.Run(() => this.PrefetchNextImageSearchResults());
 
-            return imageMetadata; 
+            // Return the previously prefetched results
+            return imageData; 
         }
 
         private async void PrefetchNextImageSearchResults()
@@ -107,21 +110,26 @@ namespace ImageSearcher.Components
             // Deserialize the JSON response from the Bing Image Search API
             dynamic jsonObject = JObject.Parse(jsonResult);
 
+            if (jsonObject.value.Count == 0)
+            {
+                return;
+            }
+
             // Set properties from the JSON response for image processing
             var lastIndex = this.RemainingEstimatedMatches < count ? this.RemainingEstimatedMatches : count;
 
-            // Collect image metadata for display
-            this.SetImageMetadata(this.PrefetchedImageSearchResults, jsonObject, lastIndex);
+            // Collect image data for display
+            this.SetImageData(this.PrefetchedImageSearchResults, jsonObject, lastIndex);
 
             // Reset the offset for the next prefetch
             this.Offset = jsonObject.nextOffset;
         }
 
-        private void SetImageMetadata(List<ImageMetadata> list, dynamic jsonObject, int lastIndex)
+        private void SetImageData(List<ImageData> list, dynamic jsonObject, int lastIndex)
         {
             for (int resultIndex = 0; resultIndex < lastIndex; resultIndex++)
             {
-                list.Add(new ImageMetadata
+                list.Add(new ImageData
                 {
                     Id = jsonObject.value[resultIndex].imageId,
                     Name = jsonObject.value[resultIndex].name,

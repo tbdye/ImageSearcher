@@ -9,6 +9,7 @@
 
     <Style x:Key="SearchTextBox" TargetType="TextBox">
         <Style.Setters>
+            <Setter Property="Padding" Value="10,5,0,5" />
             <Setter Property="Width" Value="400" />
             <Setter Property="Background" Value="{StaticResource WhiteBrush}" />
             <Setter Property="BorderThickness" Value="1" />
@@ -19,7 +20,9 @@
 
     <Style x:Key="FilterComboBox" TargetType="ComboBox">
         <Style.Setters>
+            <Setter Property="Margin" Value="0,0,10,10" />
             <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
         </Style.Setters>
     </Style>
 </ResourceDictionary>

@@ -379,21 +379,21 @@ namespace ImageSearcher.Components
                 return;
             }
 
-            var imageMetadataList = await imageSearchConnector.NewImageSearch(this.SearchText, this.GetFilters);
+            var imageDataList = await imageSearchConnector.NewImageSearch(this.SearchText, this.GetFilters);
 
-            foreach (var imageMetadata in imageMetadataList)
+            foreach (var imageData in imageDataList)
             {
-                SearchResults.Add(new ImageCollection { ImageMetadataCollection = imageMetadata });
+                SearchResults.Add(new ImageCollection { ImageDataCollection = imageData });
             }
         }
 
         public void SeeMoreImages()
         {
-            var imageMetadataList = imageSearchConnector.LoadNextOffset();
+            var imageDataList = imageSearchConnector.LoadNextOffset();
 
-            foreach (var imageMetadata in imageMetadataList)
+            foreach (var imageData in imageDataList)
             {
-                SearchResults.Add(new ImageCollection { ImageMetadataCollection = imageMetadata });
+                SearchResults.Add(new ImageCollection { ImageDataCollection = imageData });
             }
         }
     }

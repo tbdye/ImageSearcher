@@ -121,7 +121,7 @@
     </Compile>
     <Compile Include="Components\BingImageSearchConnector.cs" />
     <Compile Include="Components\ImageCollection.cs" />
-    <Compile Include="Components\ImageMetadata.cs" />
+    <Compile Include="Components\ImageData.cs" />
     <Compile Include="Components\ImageSearchModel.cs" />
     <Compile Include="Components\RelayCommand.cs" />
     <Compile Include="Components\UiToolsBase.cs" />
@@ -195,9 +195,7 @@
       <Version>12.0.2</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Design\Controls\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
