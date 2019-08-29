@@ -120,10 +120,10 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\BingImageSearchConnector.cs" />
+    <Compile Include="Components\DelegateCommand.cs" />
     <Compile Include="Components\ImageCollection.cs" />
     <Compile Include="Components\ImageData.cs" />
     <Compile Include="Components\ImageSearchModel.cs" />
-    <Compile Include="Components\RelayCommand.cs" />
     <Compile Include="Components\UiToolsBase.cs" />
     <Compile Include="MainUI\ImageView.xaml.cs">
       <DependentUpon>ImageView.xaml</DependentUpon>

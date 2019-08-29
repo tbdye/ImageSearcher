@@ -1,10 +1,7 @@
 ﻿using ImageSearcher.Components;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace ImageSearcher.MainUI
 {
@@ -12,16 +9,31 @@ namespace ImageSearcher.MainUI
     {
         private readonly ImageSearchModel imageSearchModel;
 
+        public event EventHandler DisplayImageFullScreenStateChanged;
+
         public ImageViewModel(ImageSearchModel imageSearchModel)
         {
             this.imageSearchModel = imageSearchModel;
+
+            this.DisplayImageFullScreen = new DelegateCommand(this.DisplayImageFullScreenCommandHandler);
         }
 
+        public ICommand DisplayImageFullScreen { get; }
+
         public ObservableCollection<ImageCollection> SearchResults => imageSearchModel.SearchResults;
+
+        public string FullScreenImageUri { get; set; }
 
         internal void SeeMoreImages()
         {
             this.imageSearchModel.SeeMoreImages();
+        }
+
+        private void DisplayImageFullScreenCommandHandler(object image)
+        {
+            this.FullScreenImageUri = image as string;
+
+            this.DisplayImageFullScreenStateChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

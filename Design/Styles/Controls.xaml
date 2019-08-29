@@ -25,4 +25,11 @@
             <Setter Property="HorizontalAlignment" Value="Left" />
         </Style.Setters>
     </Style>
+
+    <Style x:Key="ImageButton" TargetType="Button">
+        <Style.Setters>
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="0" />
+        </Style.Setters>
+    </Style>
 </ResourceDictionary>

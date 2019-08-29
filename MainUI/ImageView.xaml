@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
+    x:Name="Root"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
@@ -16,13 +17,13 @@
         </Grid.Resources>
 
         <ScrollViewer Name="scroll" ViewChanged="Scroll_ViewChanged">
-            <ListBox ItemsSource="{Binding Source={StaticResource SearchResults}}" Background="{StaticResource WhiteBrush}">
+            <ListBox Name="ImageCollection" ItemsSource="{Binding Source={StaticResource SearchResults}}" Background="{StaticResource WhiteBrush}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            <HyperlinkButton Padding="0" NavigateUri="{Binding ImageDataCollection.ContentUrl}">
+                            <Button Command="{Binding ElementName=Root, Path=DataContext.DisplayImageFullScreen}" CommandParameter="{Binding ImageDataCollection.ContentUrl}" Style="{StaticResource ImageButton}">
                                 <Image Source="{Binding ImageDataCollection.ThumbnailUrl}" />
-                            </HyperlinkButton>
+                            </Button>
                             <Grid>
                                 <Grid Background="#44000000" VerticalAlignment="Bottom">
                                     <TextBlock Margin="3" Text="{Binding ImageDataCollection.Name}" Foreground="{StaticResource WhiteBrush}" />
@@ -37,6 +38,6 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ListBox>
-        </ScrollViewer>
+        </ScrollViewer>        
     </Grid>
 </UserControl>

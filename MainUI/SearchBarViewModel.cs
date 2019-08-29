@@ -1,15 +1,13 @@
 ﻿using ImageSearcher.Components;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace ImageSearcher.MainUI
 {
     public class SearchBarViewModel : UiToolsBase, IDisposable
     {
+        private bool isDisposed = false;
         private readonly ImageSearchModel imageSearchModel;
 
         private string searchTextField;
@@ -18,14 +16,27 @@ namespace ImageSearcher.MainUI
         {
             this.imageSearchModel = imageSearchModel;
 
-            this.DoSearch = new RelayCommand(this.DoSearchCommandHandler);
+            this.DoSearch = new DelegateCommand(this.DoSearchCommandHandler);
 
             this.imageSearchModel.FilterStateChanged += this.FilterStateChangedEventHandler;
         }
 
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.isDisposed)
+            {
+                if (disposing)
+                {
+                    this.imageSearchModel.FilterStateChanged -= this.FilterStateChangedEventHandler;
+                }
+
+                this.isDisposed = true;
+            }
+        }
+
         public void Dispose()
         {
-            this.imageSearchModel.FilterStateChanged -= this.FilterStateChangedEventHandler;
+            Dispose(true);
         }
 
         public ICommand DoSearch { get; }
@@ -71,11 +82,7 @@ namespace ImageSearcher.MainUI
 
             set
             {
-                if (this.imageSearchModel.SelectedImageSize != value)
-                {
-                    this.imageSearchModel.SelectedImageSize = value;
-                    this.OnPropertyChanged(nameof(SelectedImageSize));
-                }
+                this.imageSearchModel.SelectedImageSize = value;
             }
         }
 
@@ -88,11 +95,7 @@ namespace ImageSearcher.MainUI
 
             set
             {
-                if (this.imageSearchModel.SelectedColor != value)
-                {
-                    this.imageSearchModel.SelectedColor = value;
-                    this.OnPropertyChanged(nameof(SelectedColor));
-                }
+                this.imageSearchModel.SelectedColor = value;
             }
         }
 
@@ -105,11 +108,7 @@ namespace ImageSearcher.MainUI
 
             set
             {
-                if (this.imageSearchModel.SelectedType != value)
-                {
-                    this.imageSearchModel.SelectedType = value;
-                    this.OnPropertyChanged(nameof(SelectedType));
-                }
+                this.imageSearchModel.SelectedType = value;
             }
         }
 
@@ -122,11 +121,7 @@ namespace ImageSearcher.MainUI
 
             set
             {
-                if (this.imageSearchModel.SelectedLayout != value)
-                {
-                    this.imageSearchModel.SelectedLayout = value;
-                    this.OnPropertyChanged(nameof(SelectedLayout));
-                }
+                this.imageSearchModel.SelectedLayout = value;
             }
         }
 
@@ -139,11 +134,7 @@ namespace ImageSearcher.MainUI
 
             set
             {
-                if (this.imageSearchModel.SelectedPeople != value)
-                {
-                    this.imageSearchModel.SelectedPeople = value;
-                    this.OnPropertyChanged(nameof(SelectedPeople));
-                }
+                this.imageSearchModel.SelectedPeople = value;
             }
         }
 
@@ -156,11 +147,7 @@ namespace ImageSearcher.MainUI
 
             set
             {
-                if (this.imageSearchModel.SelectedDate != value)
-                {
-                    this.imageSearchModel.SelectedDate = value;
-                    this.OnPropertyChanged(nameof(SelectedDate));
-                }
+                this.imageSearchModel.SelectedDate = value;
             }
         }
 
@@ -173,11 +160,7 @@ namespace ImageSearcher.MainUI
 
             set
             {
-                if (this.imageSearchModel.SelectedLicense != value)
-                {
-                    this.imageSearchModel.SelectedLicense = value;
-                    this.OnPropertyChanged(nameof(SelectedLicense));
-                }
+                this.imageSearchModel.SelectedLicense = value;
             }
         }
 
@@ -190,15 +173,11 @@ namespace ImageSearcher.MainUI
 
             set
             {
-                if (this.imageSearchModel.SelectedSafeSearch != value)
-                {
-                    this.imageSearchModel.SelectedSafeSearch = value;
-                    this.OnPropertyChanged(nameof(SelectedSafeSearch));
-                }
+                this.imageSearchModel.SelectedSafeSearch = value;
             }
         }
 
-        private void DoSearchCommandHandler()
+        private void DoSearchCommandHandler(object o)
         {
             this.imageSearchModel.DoSearch();
         }
