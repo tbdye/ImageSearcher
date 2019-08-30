@@ -23,8 +23,10 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        
         <local:SearchBarView Grid.Row="0" DataContext="{Binding SearchBarViewModel}" />
         <local:ImageView Grid.Row="1" DataContext="{Binding ImageViewModel}" />
+        
         <Grid Grid.Row="0" Grid.RowSpan="2" Background="{StaticResource BlackBrush}" Opacity=".9" Visibility="{Binding IsFullScreenPicture, Converter={StaticResource BoolToVisibilityConverter}}">
             <Image Margin="20" Source="{Binding FullScreenImageUri}" />
             <interactivity:Interaction.Behaviors>

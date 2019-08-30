@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:utility="using:Microsoft.Toolkit.Uwp.UI.Converters"
     mc:Ignorable="d"
     x:Name="Root"
     d:DesignHeight="300"
@@ -14,6 +15,7 @@
     <Grid>
         <Grid.Resources>
             <CollectionViewSource x:Name="SearchResults" Source="{Binding SearchResults}" IsSourceGrouped="False" />
+            <utility:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         </Grid.Resources>
 
         <ScrollViewer Name="scroll" ViewChanged="Scroll_ViewChanged">
@@ -38,6 +40,29 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ListBox>
-        </ScrollViewer>        
+        </ScrollViewer>
+
+        <StackPanel Margin="30,20,30,0" Visibility="{Binding IsVisibleNoResultsFoundText, Converter={StaticResource BoolToVisibilityConverter}}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="We did not find any results for" Style="{StaticResource HeadingTextBlock}" />
+                <TextBlock Margin="5,0,0,0" Text="{Binding SearchText}" Style="{StaticResource HeadingTextBlock}"/>
+                <TextBlock Text="." Style="{StaticResource HeadingTextBlock}"/>
+            </StackPanel>
+
+            <TextBlock Margin="0,20,0,0" Text="Search tips:" Style="{StaticResource HeadingTextBlock}" />
+
+            <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
+                <StackPanel>
+                    <TextBlock Text="&#8226; Clear filters." Style="{StaticResource NormalTextBlock}" />
+                    <TextBlock Text="&#8226; Try less specific keywords." Style="{StaticResource NormalTextBlock}" />
+                </StackPanel>
+                <StackPanel Margin="20,0,0,0">
+                    <TextBlock Text="&#8226; Try rephrasing keywords or using synonyms." Style="{StaticResource NormalTextBlock}" />
+                    <TextBlock Text="&#8226; Make your queries as concise as possible." Style="{StaticResource NormalTextBlock}" />
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        
+        <ProgressRing IsActive="{Binding IsLoadingResults}" Height="50" Width="50" />
     </Grid>
 </UserControl>

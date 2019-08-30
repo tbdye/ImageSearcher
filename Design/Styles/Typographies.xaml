@@ -12,8 +12,8 @@
     <FontFamily x:Key="ItalicFontFamily">Arial</FontFamily>
 
     <!-- Font Sizes -->
-    <x:Double x:Key="SmallSize">11</x:Double>
-    <x:Double x:Key="MediumSize">22</x:Double>
+    <x:Double x:Key="SmallSize">13</x:Double>
+    <x:Double x:Key="MediumSize">15</x:Double>
     <x:Double x:Key="LargeSize">33</x:Double>
 
     <!-- Application Font Definitons -->
@@ -32,6 +32,6 @@
     <Style x:Key="NormalTextBlock" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="{StaticResource RegularFontFamily}" />
         <Setter Property="FontSize" Value="{StaticResource SmallSize}" />
-        <Setter Property="Foreground" Value="{StaticResource BlackBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource DarkGrayBrush}" />
     </Style>
 </ResourceDictionary>

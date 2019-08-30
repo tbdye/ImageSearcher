@@ -10,8 +10,6 @@ namespace ImageSearcher.MainUI
         private bool isDisposed = false;
         private readonly ImageSearchModel imageSearchModel;
 
-        private string searchTextField;
-
         public SearchBarViewModel(ImageSearchModel imageSearchModel)
         {
             this.imageSearchModel = imageSearchModel;
@@ -45,14 +43,15 @@ namespace ImageSearcher.MainUI
         {
             get
             {
-                return searchTextField;
+                return this.imageSearchModel.SearchText;
             }
 
             set
             {
-                if (SetProperty(ref this.searchTextField, value))
+                if (this.imageSearchModel.SearchText != value)
                 {
                     this.imageSearchModel.SearchText = value;
+                    this.OnPropertyChanged(nameof(this.SearchText));
                 }
             }
         }
@@ -82,7 +81,10 @@ namespace ImageSearcher.MainUI
 
             set
             {
-                this.imageSearchModel.SelectedImageSize = value;
+                if (value != null)
+                {
+                    this.imageSearchModel.SelectedImageSize = value;
+                }
             }
         }
 
@@ -95,7 +97,10 @@ namespace ImageSearcher.MainUI
 
             set
             {
-                this.imageSearchModel.SelectedColor = value;
+                if (value != null)
+                {
+                    this.imageSearchModel.SelectedColor = value;
+                }
             }
         }
 
@@ -108,7 +113,10 @@ namespace ImageSearcher.MainUI
 
             set
             {
-                this.imageSearchModel.SelectedType = value;
+                if (value != null)
+                {
+                    this.imageSearchModel.SelectedType = value;
+                }
             }
         }
 
@@ -121,7 +129,10 @@ namespace ImageSearcher.MainUI
 
             set
             {
-                this.imageSearchModel.SelectedLayout = value;
+                if (value != null)
+                {
+                    this.imageSearchModel.SelectedLayout = value;
+                }
             }
         }
 
@@ -134,7 +145,10 @@ namespace ImageSearcher.MainUI
 
             set
             {
-                this.imageSearchModel.SelectedPeople = value;
+                if (value != null)
+                {
+                    this.imageSearchModel.SelectedPeople = value;
+                }
             }
         }
 
@@ -147,7 +161,10 @@ namespace ImageSearcher.MainUI
 
             set
             {
-                this.imageSearchModel.SelectedDate = value;
+                if (value != null)
+                {
+                    this.imageSearchModel.SelectedDate = value;
+                }
             }
         }
 
@@ -160,7 +177,10 @@ namespace ImageSearcher.MainUI
 
             set
             {
-                this.imageSearchModel.SelectedLicense = value;
+                if (value != null)
+                {
+                    this.imageSearchModel.SelectedLicense = value;
+                }
             }
         }
 

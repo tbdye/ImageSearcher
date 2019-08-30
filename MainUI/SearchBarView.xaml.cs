@@ -20,5 +20,15 @@ namespace ImageSearcher.MainUI
                 this.ViewModel.DoSearch.Execute(sender);
             }
         }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var comboBox = sender as ComboBox;
+
+            if (comboBox.SelectedIndex == 0)
+            {
+                comboBox.SelectedIndex = -1;
+            }
+        }
     }
 }

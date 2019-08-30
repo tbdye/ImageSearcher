@@ -4,9 +4,9 @@
 
     <!-- Application color palette -->
     <Color x:Key="WhiteColor">#FFFFFF</Color>
-    <Color x:Key="LightGrayColor">#d8d8d8</Color>
+    <Color x:Key="LightGrayColor">#a8a8a8</Color>
     <Color x:Key="MediumGrayColor">#808080</Color>
-    <Color x:Key="DarkGrayColor">#8c8c8c</Color>
+    <Color x:Key="DarkGrayColor">#6c6c6c</Color>
     <Color x:Key="BlackColor">#000000</Color>
 
     <Color x:Key="LightBlueColor">#4da6ff</Color>

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -10,6 +11,9 @@ namespace ImageSearcher.Components
         private const int count = 50;
         private const string subscriptionKey = "7e18a9a770e7437185aec8841d3dc83d";
         private const string uriBase = "https://api.cognitive.microsoft.com/bing/v7.0/images/search";
+
+        public event EventHandler<bool> TotalEstimatedMatchesChanged;
+        public event EventHandler<bool> SearchInProgressStatusChanged;
 
         public BingImageSearchConnector()
         {
@@ -36,6 +40,8 @@ namespace ImageSearcher.Components
 
         public async Task<IEnumerable<ImageData>> NewImageSearch(string query, string filters)
         {
+            this.SearchInProgressStatusChanged?.Invoke(this, true);
+
             var imageDataResults = new List<ImageData>();
 
             // Reset properties
@@ -50,6 +56,9 @@ namespace ImageSearcher.Components
 
             if (jsonResult == null)
             {
+                // Alert whether there were search results returned or not.
+                this.SearchInProgressStatusChanged?.Invoke(this, false);
+                this.TotalEstimatedMatchesChanged?.Invoke(this, false);
                 return imageDataResults;
             }
 
@@ -58,6 +67,9 @@ namespace ImageSearcher.Components
 
             if (jsonObject.value.Count == 0)
             {
+                // Alert whether there were search results returned or not.
+                this.SearchInProgressStatusChanged?.Invoke(this, false);
+                this.TotalEstimatedMatchesChanged?.Invoke(this, false);
                 return imageDataResults;
             }
 
@@ -73,6 +85,10 @@ namespace ImageSearcher.Components
 
             // Prefetch the next page of results, but don't load them yet.
             this.PrefetchNextImageSearchResults();
+
+            // Alert whether there were search results returned or not.
+            this.SearchInProgressStatusChanged?.Invoke(this, false);
+            this.TotalEstimatedMatchesChanged?.Invoke(this, true);
 
             return imageDataResults;
         }

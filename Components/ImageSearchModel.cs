@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace ImageSearcher.Components
 {
-    public class ImageSearchModel
+    public class ImageSearchModel: IDisposable
     {
         private readonly BingImageSearchConnector imageSearchConnector;
 
@@ -16,14 +16,39 @@ namespace ImageSearcher.Components
         private string selectedDateField = "All";
         private string selectedLicenseField = "All";
         private string selectedSafeSearchField = "Moderate";
+        private bool isDisposed;
 
         public event EventHandler FilterStateChanged;
+        public event EventHandler<bool> TotalEstimatedMatchesChanged;
+        public event EventHandler<bool> SearchInProgressStatusChanged;
 
         public ImageSearchModel()
         {
             this.imageSearchConnector = new BingImageSearchConnector();
 
             this.SearchResults = new ObservableCollection<ImageCollection>();
+
+            this.imageSearchConnector.TotalEstimatedMatchesChanged += this.TotalEstimatedMatchesChangedEventHandler;
+            this.imageSearchConnector.SearchInProgressStatusChanged += this.SearchInProgressStatusChangedEventHandler;
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.isDisposed)
+            {
+                if (disposing)
+                {
+                    this.imageSearchConnector.TotalEstimatedMatchesChanged -= this.TotalEstimatedMatchesChangedEventHandler;
+                    this.imageSearchConnector.SearchInProgressStatusChanged -= this.SearchInProgressStatusChangedEventHandler;
+                }
+
+                this.isDisposed = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
         }
 
         public ObservableCollection<ImageCollection> SearchResults { get; private set; }
@@ -34,7 +59,7 @@ namespace ImageSearcher.Components
         {
             get
             {
-                return selectedImageSizeField;
+                return this.selectedImageSizeField;
             }
 
             set
@@ -51,7 +76,7 @@ namespace ImageSearcher.Components
         {
             get
             {
-                return selectedColorField;
+                return this.selectedColorField;
             }
 
             set
@@ -68,7 +93,7 @@ namespace ImageSearcher.Components
         {
             get
             {
-                return selectedTypeField;
+                return this.selectedTypeField;
             }
 
             set
@@ -85,7 +110,7 @@ namespace ImageSearcher.Components
         {
             get
             {
-                return selectedLayoutField;
+                return this.selectedLayoutField;
             }
 
             set
@@ -102,7 +127,7 @@ namespace ImageSearcher.Components
         {
             get
             {
-                return selectedPeopleField;
+                return this.selectedPeopleField;
             }
 
             set
@@ -119,7 +144,7 @@ namespace ImageSearcher.Components
         {
             get
             {
-                return selectedDateField;
+                return this.selectedDateField;
             }
 
             set
@@ -136,7 +161,7 @@ namespace ImageSearcher.Components
         {
             get
             {
-                return selectedLicenseField;
+                return this.selectedLicenseField;
             }
 
             set
@@ -153,7 +178,7 @@ namespace ImageSearcher.Components
         {
             get
             {
-                return selectedSafeSearchField;
+                return this.selectedSafeSearchField;
             }
 
             set
@@ -389,6 +414,17 @@ namespace ImageSearcher.Components
             {
                 SearchResults.Add(new ImageCollection { ImageDataCollection = imageData });
             }
+        }
+
+        private void TotalEstimatedMatchesChangedEventHandler(object sender, bool e)
+        {
+            this.TotalEstimatedMatchesChanged?.Invoke(sender, e);
+        }
+
+        
+        private void SearchInProgressStatusChangedEventHandler(object sender, bool e)
+        {
+            this.SearchInProgressStatusChanged?.Invoke(sender, e);
         }
     }
 }
