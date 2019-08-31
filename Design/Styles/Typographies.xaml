@@ -9,20 +9,12 @@
     <!-- Font Styles -->
     <FontFamily x:Key="RegularFontFamily">Arial</FontFamily>
     <FontFamily x:Key="BoldFontFamily">Arial</FontFamily>
-    <FontFamily x:Key="ItalicFontFamily">Arial</FontFamily>
 
     <!-- Font Sizes -->
     <x:Double x:Key="SmallSize">13</x:Double>
     <x:Double x:Key="MediumSize">15</x:Double>
-    <x:Double x:Key="LargeSize">33</x:Double>
 
     <!-- Application Font Definitons -->
-    <Style x:Key="TitleTextBlock" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="{StaticResource BoldFontFamily}" />
-        <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
-        <Setter Property="Foreground" Value="{StaticResource BlackBrush}" />
-    </Style>
-
     <Style x:Key="HeadingTextBlock" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="{StaticResource BoldFontFamily}" />
         <Setter Property="FontSize" Value="{StaticResource MediumSize}" />

@@ -15,7 +15,7 @@
 
   <Properties>
     <DisplayName>ImageSearcher</DisplayName>
-    <PublisherDisplayName>thomas</PublisherDisplayName>
+    <PublisherDisplayName>Thomas Dye</PublisherDisplayName>
     <Logo>Design\Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -32,10 +32,10 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="ImageSearcher.App">
       <uap:VisualElements
-        DisplayName="ImageSearcher"
+        DisplayName="Bing ImageSearcher"
         Square150x150Logo="Design\Assets\Square150x150Logo.png"
         Square44x44Logo="Design\Assets\Square44x44Logo.png"
-        Description="ImageSearcher"
+        Description="My goal was to learn UWP app development, integration of REST API calls, and build an app that used them, all in one week. The Bing ImageSearcher App is the result. This app allows you to search for images using the Bing Image Search API from Azure, filter results, view the results as a scrollable collection, and click the one you like to see it full screen. Documentation about the API can be found here. This app also makes use of tooling provided by the Windows Community Toolkit.  Find the source code at https://github.com/tbdye/ImageSearcher"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Design\Assets\Wide310x150Logo.png">
           <uap:ShowNameOnTiles>

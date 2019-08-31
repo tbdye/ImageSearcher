@@ -8,11 +8,20 @@ namespace ImageSearcher.Components
 {
     public class BingImageSearchConnector
     {
+        // Set count to determine the maximum number of images that should be returned
         private const int count = 50;
+
+        // Set a subscription ID obtained from Azure
         private const string subscriptionKey = "7e18a9a770e7437185aec8841d3dc83d";
+
+        // Define the Bing Image Search API in use
         private const string uriBase = "https://api.cognitive.microsoft.com/bing/v7.0/images/search";
 
+        // Used to control the visibility of error text if no search results are returned.
+        // Return true if the search request returned results, otherwise false.
         public event EventHandler<bool> TotalEstimatedMatchesChanged;
+
+        // Used to control the loading state animation.  Return true to show the loading animation, otherwise false.
         public event EventHandler<bool> SearchInProgressStatusChanged;
 
         public BingImageSearchConnector()
@@ -40,6 +49,7 @@ namespace ImageSearcher.Components
 
         public async Task<IEnumerable<ImageData>> NewImageSearch(string query, string filters)
         {
+            // Start the progress bar animation
             this.SearchInProgressStatusChanged?.Invoke(this, true);
 
             var imageDataResults = new List<ImageData>();
@@ -56,7 +66,7 @@ namespace ImageSearcher.Components
 
             if (jsonResult == null)
             {
-                // Alert whether there were search results returned or not.
+                // Fail gracefully
                 this.SearchInProgressStatusChanged?.Invoke(this, false);
                 this.TotalEstimatedMatchesChanged?.Invoke(this, false);
                 return imageDataResults;
@@ -67,7 +77,7 @@ namespace ImageSearcher.Components
 
             if (jsonObject.value.Count == 0)
             {
-                // Alert whether there were search results returned or not.
+                // The search did not return any results.  End the progress bar animation and update the UI.
                 this.SearchInProgressStatusChanged?.Invoke(this, false);
                 this.TotalEstimatedMatchesChanged?.Invoke(this, false);
                 return imageDataResults;
@@ -83,10 +93,10 @@ namespace ImageSearcher.Components
             // Reset the offset for the next prefetch
             this.Offset = jsonObject.nextOffset;
 
-            // Prefetch the next page of results, but don't load them yet.
+            // Prefetch the next page of results, but don't load them yet
             this.PrefetchNextImageSearchResults();
 
-            // Alert whether there were search results returned or not.
+            // Update the UI
             this.SearchInProgressStatusChanged?.Invoke(this, false);
             this.TotalEstimatedMatchesChanged?.Invoke(this, true);
 
@@ -98,7 +108,7 @@ namespace ImageSearcher.Components
             // Copy the prefetched images to be displayed
             var imageData = new List<ImageData>(this.PrefetchedImageSearchResults);
 
-            // Empty the existing prefetch cache and refill it with the next set of results, but don't load them yet
+            // Empty the existing prefetch cache and refill it with the next set of results, but don't load them yet.
             Task.Run(() => this.PrefetchNextImageSearchResults());
 
             // Return the previously prefetched results
@@ -161,7 +171,7 @@ namespace ImageSearcher.Components
             using (var client = new HttpClient())
             {
 
-                // Request headers
+                // Provide the request headers
                 client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
 
                 // Construct the URI of the search request
@@ -172,6 +182,7 @@ namespace ImageSearcher.Components
 
                 if (!response.IsSuccessStatusCode)
                 {
+                    // Fail gracefully if the search request produced an error (not 200).
                     return null;
                 }
             }

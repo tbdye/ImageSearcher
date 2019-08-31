@@ -76,11 +76,13 @@ namespace ImageSearcher.MainUI
         {
             get
             {
+                // If the current selected value is the default value, force the ComboBox to display the PlaceholderText.
                 return this.imageSearchModel.SelectedImageSize == "All" ? "Image size" : this.imageSearchModel.SelectedImageSize;
             }
 
             set
             {
+                // The SearchBarView codebehind will force an invalid selection when the default value is reset.  Do not null the selected string.
                 if (value != null)
                 {
                     this.imageSearchModel.SelectedImageSize = value;
@@ -92,11 +94,13 @@ namespace ImageSearcher.MainUI
         {
             get
             {
+                // If the current selected value is the default value, force the ComboBox to display the PlaceholderText.
                 return this.imageSearchModel.SelectedColor == "All" ? "Color" : this.imageSearchModel.SelectedColor;
             }
 
             set
             {
+                // The SearchBarView codebehind will force an invalid selection when the default value is reset.  Do not null the selected string.
                 if (value != null)
                 {
                     this.imageSearchModel.SelectedColor = value;
@@ -108,11 +112,13 @@ namespace ImageSearcher.MainUI
         {
             get
             {
+                // If the current selected value is the default value, force the ComboBox to display the PlaceholderText.
                 return this.imageSearchModel.SelectedType == "All" ? "Type" : this.imageSearchModel.SelectedType;
             }
 
             set
             {
+                // The SearchBarView codebehind will force an invalid selection when the default value is reset.  Do not null the selected string.
                 if (value != null)
                 {
                     this.imageSearchModel.SelectedType = value;
@@ -124,11 +130,13 @@ namespace ImageSearcher.MainUI
         {
             get
             {
+                // If the current selected value is the default value, force the ComboBox to display the PlaceholderText.
                 return this.imageSearchModel.SelectedLayout == "All" ? "Layout" : this.imageSearchModel.SelectedLayout;
             }
 
             set
             {
+                // The SearchBarView codebehind will force an invalid selection when the default value is reset.  Do not null the selected string.
                 if (value != null)
                 {
                     this.imageSearchModel.SelectedLayout = value;
@@ -140,11 +148,13 @@ namespace ImageSearcher.MainUI
         {
             get
             {
+                // If the current selected value is the default value, force the ComboBox to display the PlaceholderText.
                 return this.imageSearchModel.SelectedPeople == "All" ? "People" : this.imageSearchModel.SelectedPeople;
             }
 
             set
             {
+                // The SearchBarView codebehind will force an invalid selection when the default value is reset.  Do not null the selected string.
                 if (value != null)
                 {
                     this.imageSearchModel.SelectedPeople = value;
@@ -156,11 +166,13 @@ namespace ImageSearcher.MainUI
         {
             get
             {
+                // If the current selected value is the default value, force the ComboBox to display the PlaceholderText.
                 return this.imageSearchModel.SelectedDate == "All" ? "Date" : this.imageSearchModel.SelectedDate;
             }
 
             set
             {
+                // The SearchBarView codebehind will force an invalid selection when the default value is reset.  Do not null the selected string.
                 if (value != null)
                 {
                     this.imageSearchModel.SelectedDate = value;
@@ -172,11 +184,13 @@ namespace ImageSearcher.MainUI
         {
             get
             {
+                // If the current selected value is the default value, force the ComboBox to display the PlaceholderText.
                 return this.imageSearchModel.SelectedLicense == "All" ? "License" : this.imageSearchModel.SelectedLicense;
             }
 
             set
             {
+                // The SearchBarView codebehind will force an invalid selection when the default value is reset.  Do not null the selected string.
                 if (value != null)
                 {
                     this.imageSearchModel.SelectedLicense = value;
@@ -188,6 +202,7 @@ namespace ImageSearcher.MainUI
         {
             get
             {
+                // If the current selected value is the default value, force the ComboBox to display the PlaceholderText.
                 return this.imageSearchModel.SelectedSafeSearch == "Moderate" ? "SafeSearch" : this.imageSearchModel.SelectedSafeSearch;
             }
 
@@ -197,11 +212,13 @@ namespace ImageSearcher.MainUI
             }
         }
 
+        // Do a new image search when pressing the search button or when pressing enter from inside the search textbox.
         private void DoSearchCommandHandler(object o)
         {
             this.imageSearchModel.DoSearch();
         }
 
+        // Do a new image search with the existing search term when changing filters.
         private void FilterStateChangedEventHandler(object o, EventArgs e)
         {
             this.imageSearchModel.DoSearch();

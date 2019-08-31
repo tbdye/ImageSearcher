@@ -19,6 +19,7 @@ namespace ImageSearcher.MainUI
 
             if (scrollViewer.VerticalOffset  >= scrollViewer.ScrollableHeight)
             {
+                // When the user reaches the bottom of the scrollbar, trigger a command to load more image results into view.
                 this.ViewModel.SeeMoreImages();
             }
         }

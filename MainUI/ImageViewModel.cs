@@ -9,10 +9,11 @@ namespace ImageSearcher.MainUI
     {
         private readonly ImageSearchModel imageSearchModel;
 
+        private bool isDisposed = false;
         private bool isVisibleNoResultsFoundTextField;
-        private bool isDisposed;
         private bool isLoadingResultsField;
 
+        // Used to block the application's regular UI with an overlay to display a clicked image in full screen.
         public event EventHandler DisplayImageFullScreenStateChanged;
 
         public ImageViewModel(ImageSearchModel imageSearchModel)
@@ -79,6 +80,7 @@ namespace ImageSearcher.MainUI
 
         public string SearchText => this.imageSearchModel.SearchText;
 
+        // Triggered from the ImageView codebehind when reaching the bottom of the scrollbar.  Loads more images for infinite scrolling.
         internal void SeeMoreImages()
         {
             this.imageSearchModel.SeeMoreImages();

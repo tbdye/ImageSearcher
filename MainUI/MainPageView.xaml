@@ -9,7 +9,9 @@
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     x:Name="Root"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    d:DesignHeight="400"
+    d:DesignWidth="900">
     <Page.DataContext>
         <local:MainPageViewModel />
     </Page.DataContext>

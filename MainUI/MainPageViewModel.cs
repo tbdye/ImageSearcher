@@ -57,6 +57,7 @@ namespace ImageSearcher.MainUI
 
         public string FullScreenImageUri => this.ImageViewModel.FullScreenImageUri;
 
+        // Initialize other viewmodels and models
         private void Initialize()
         {
             var imageSearchModel = new ImageSearchModel();

@@ -9,18 +9,10 @@
     <Color x:Key="DarkGrayColor">#6c6c6c</Color>
     <Color x:Key="BlackColor">#000000</Color>
 
-    <Color x:Key="LightBlueColor">#4da6ff</Color>
-    <Color x:Key="MediumBlueColor">#0080ff</Color>
-    <Color x:Key="DarkBlueColor">#005ab3</Color>
-
     <!-- Application color brushes -->
     <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource WhiteColor}" />
     <SolidColorBrush x:Key="LightGrayBrush" Color="{StaticResource LightGrayColor}" />
     <SolidColorBrush x:Key="MediumGrayBrush" Color="{StaticResource MediumGrayColor}" />
     <SolidColorBrush x:Key="DarkGrayBrush" Color="{StaticResource DarkGrayColor}" />
     <SolidColorBrush x:Key="BlackBrush" Color="{StaticResource BlackColor}" />
-
-    <SolidColorBrush x:Key="LightBlueBrush" Color="{StaticResource LightBlueColor}" />
-    <SolidColorBrush x:Key="MediumBlueBrush" Color="{StaticResource MediumBlueColor}" />
-    <SolidColorBrush x:Key="DarkBlueBrush" Color="{StaticResource DarkBlueColor}" />
 </ResourceDictionary>
