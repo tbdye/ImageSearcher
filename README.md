@@ -9,6 +9,14 @@ products:
 # Bing ImageSearcher App
 My goal was to learn UWP app development, integration of REST API calls, and build an app that used them, all in one week.  The Bing ImageSearcher App is the result.   This app allows you to search for images using the Bing Image Search API from Azure, filter results, view the results as a scrollable collection, and click the one you like to see it full screen.  Documentation about the API can be found [here](https://docs.microsoft.com/en-us/rest/api/cognitiveservices-bingsearch/bing-images-api-v7-reference).  This app also makes use of tooling provided by the [Windows Community Toolkit](https://github.com/windows-toolkit/WindowsCommunityToolkit).
 
+## Instructions
+1. Clone this repository to your computer using your favorite Git client.
+2. Ensure your computer is in Developer Mode in Windows Settings by selecting it in Developer settings.
+3. Open the ImageSearcher.sln solution file using Visual Studio 2019.
+4. In the top bar, change the build type from Debug to Release and the processor architecture to x64.
+5. Right click on the ImageSearcher (Universal Windows) solution in the Solution Explorer and choose Deploy.  This will take a while to build.
+6. Access the Bing ImageSearcher UWP app from your computer’s Start Menu.  Enjoy!
+
 ## Features
 
 ### Design Features
